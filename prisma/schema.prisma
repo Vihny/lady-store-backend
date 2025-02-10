@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Customer {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  name  String  @db.VarChar(40)
+  cpf   String  @db.Char(15)
+  phone String  @db.Char(15)
+  sales Sale[]
+}
+
+model Product{
+    id     Int    @id @default(autoincrement())
+    name   String @db.VarChar(80)
+    brand  String @db.VarChar(80)
+    model  String @db.VarChar(80)
+    type   String @db.VarChar(20)
+    size   String @db.VarChar(20)
+    color  String @db.VarChar(40)
+    price  Float 
+    stocks Stock[]
+    sales  Sale[]
+}
+
+model Stock {
+    id         Int     @id @default(autoincrement())
+    name       String  @db.VarChar(100)
+    unit       String  @db.VarChar(50)
+    quantity   Float
+    code       String  @db.VarChar(50)
+    complement String? @db.VarChar(100)
+    product_id Int
+    product    Product @relation(fields: [product_id], references: [id])
+    sales      Sale[]
+}
+
+model Sale{
+    id          Int     @id @default(autoincrement())
+    sale_date   String  @db.VarChar(50)
+    sale_state  String  @db.VarChar(50)
+    observation String? @db.VarChar(200)
+    stock_id    Int
+    customer_id Int
+    product_id  Int
+    product     Product  @relation(fields: [product_id], references: [id])
+    stock       Stock    @relation(fields: [stock_id], references: [id])
+    customer    Customer @relation(fields: [customer_id], references: [id])
+
+}
