@@ -4,6 +4,9 @@ import customerRoutes from './routes/customer.routes';
 import productRoutes from './routes/product.routes';
 import saleRoutes from './routes/sale.routes';
 import stockRoutes from './routes/stock.routes';
+import financialRoutes from './routes/financial.routes';
+import supplierRoutes from './routes/supplier.routes';
+
 
 const app = express();
 
@@ -15,11 +18,13 @@ app.use(express.json());
 app.get('/', (req, res) => {
     res.send('Servidor está funcionando!');
   });
-  
+
 // Rotas
-app.use('/customers', customerRoutes);
-app.use('/products', productRoutes);
-app.use('/sales', saleRoutes);
-app.use('/stocks', stockRoutes);
+app.use('/customer', customerRoutes);
+app.use('/product', productRoutes);
+app.use('/sale', saleRoutes);
+app.use('/stock', stockRoutes);
+app.use('/supplier', supplierRoutes);
+app.use('/financial', financialRoutes);
 
 export default app;

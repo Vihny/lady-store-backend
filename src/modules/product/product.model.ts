@@ -7,5 +7,6 @@ export interface IProduct {
     size: string;
     color: string;
     price: number;
+    supplier_id: number;
   }
   

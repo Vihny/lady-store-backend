@@ -20,6 +20,7 @@ CREATE TABLE `Product` (
     `size` VARCHAR(20) NOT NULL,
     `color` VARCHAR(40) NOT NULL,
     `price` DOUBLE NOT NULL,
+    `supplier_id` INTEGER NOT NULL, -- Relacionamento com Fornecedor
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -50,6 +51,36 @@ CREATE TABLE `Sale` (
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+-- CreateTable
+CREATE TABLE `Financial` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `operation_date` VARCHAR(50) NOT NULL,
+    `operation_type` VARCHAR(50) NOT NULL,
+    `value` DOUBLE NOT NULL,
+    `description` VARCHAR(200) NULL,
+    `sale_id` INTEGER NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Supplier` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `company_name` VARCHAR(100) NOT NULL,
+    `trading_name` VARCHAR(100) NOT NULL,
+    `cnpj` CHAR(18) NOT NULL,
+    `phone` CHAR(15) NOT NULL,
+     postal_code CHAR(10) NOT NULL, 
+    state VARCHAR(50) NOT NULL,     
+    city VARCHAR(50) NOT NULL,      
+    neighborhood VARCHAR(50) NOT NULL, 
+    street VARCHAR(100) NOT NULL,   
+    number VARCHAR(10) NOT NULL,    
+    complement VARCHAR(100) NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 -- AddForeignKey
 ALTER TABLE `Stock` ADD CONSTRAINT `Stock_product_id_fkey` FOREIGN KEY (`product_id`) REFERENCES `Product`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
@@ -61,3 +92,9 @@ ALTER TABLE `Sale` ADD CONSTRAINT `Sale_stock_id_fkey` FOREIGN KEY (`stock_id`) 
 
 -- AddForeignKey
 ALTER TABLE `Sale` ADD CONSTRAINT `Sale_customer_id_fkey` FOREIGN KEY (`customer_id`) REFERENCES `Customer`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Financial` ADD CONSTRAINT `Finance_sale_id_fkey` FOREIGN KEY (`sale_id`) REFERENCES `Sale`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Product` ADD CONSTRAINT `Product_supplier_id_fkey` FOREIGN KEY (`supplier_id`) REFERENCES `Supplier`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
