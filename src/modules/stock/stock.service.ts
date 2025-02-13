@@ -17,7 +17,23 @@ class StockService {
   }
 
   async updateStock(id: number, data: Partial<IStock>) {
-    return await prisma.stock.update({ where: { id }, data });
+    return await prisma.stock.update({
+      where: {
+        id: id,
+      },
+      data: {
+        product: {
+          connect: {
+            id: data.product_id,  // Aqui estamos usando o relacionamento para conectar o produto
+          },
+        },
+        unit: data.unit,
+        quantity: data.quantity,
+        name: data.name,
+        complement: data.complement,
+        code: data.code,
+      },
+    });
   }
 
   async deleteStock(id: number) {

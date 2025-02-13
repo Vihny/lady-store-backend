@@ -17,8 +17,19 @@ class SaleService {
   }
 
   async updateSale(id: number, data: Partial<ISale>) {
-    return await prisma.sale.update({ where: { id }, data });
+    return await prisma.sale.update({
+      where: { id },
+      data: {
+        sale_date: data.sale_date,
+        sale_state: data.sale_state,
+        observation: data.observation,
+        stock: data.stock_id ? { connect: { id: data.stock_id } } : undefined,  // Conectando pelo ID do estoque
+        product: data.product_id ? { connect: { id: data.product_id } } : undefined,  // Conectando pelo ID do produto
+        customer: data.customer_id ? { connect: { id: data.customer_id } } : undefined,  // Conectando pelo ID do cliente
+      },
+    });
   }
+  
 
   async deleteSale(id: number) {
     await this.findSaleById(id);
