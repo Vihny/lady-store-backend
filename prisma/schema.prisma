@@ -8,13 +8,22 @@ datasource db {
 }
 
 model Customer {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String  @db.VarChar(40)
-  cpf   String  @db.Char(15)
-  phone String  @db.Char(15)
+  id         Int    @id @default(autoincrement())
+  email        String @unique
+  name         String @db.VarChar(40)
+  cpf          String @db.VarChar(20)
+  phone        String @db.VarChar(20)
+  birthdate    String @db.VarChar(50)
+  postal_code  String @db.VarChar(10)
+  state        String @db.VarChar(20)
+  city         String @db.VarChar(50)
+  neighborhood String? @db.VarChar(50)
+  street       String? @db.VarChar(100)
+  number       Int? 
+  complement   String? @db.VarChar(50)
   sales Sale[]
 }
+
 
 model Product {
   id          Int      @id @default(autoincrement())
@@ -78,7 +87,7 @@ model Supplier {
   city         String   @db.VarChar(50)   
   neighborhood String   @db.VarChar(50)   
   street       String   @db.VarChar(100)  
-  number       String   @db.VarChar(10)   
+  number       Int     
   complement   String?  @db.VarChar(100)  
   products     Product[]
 }
