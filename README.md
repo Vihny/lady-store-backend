@@ -20,24 +20,32 @@ Antes de rodar o projeto, você precisa ter o seguinte instalado:
 ### Passos de Instalação
 1. Clone este repositório:
    ```bash
-   git clone https://github.com/usuario/lady-store-backend.git
+   git clone https://github.com/Vihny/lady-store-backend.git
    cd lady-store-backend
+
 2. Instale as dependências do projeto:
 
     ```bash
     npm install
 
-3. Crie um arquivo .env na raiz do projeto como o env.example, e adicione as seguintes variáveis de ambiente:
+3. Crie o banco de dados manualmente no MySQL, abra o terminal e execute o MySQL localmente para criar o banco de dados:
+        
+    ```bash
+    mysql -u root -p
+    CREATE DATABASE lady_store;
 
-DATABASE_URL="mysql://user:password@localhost:3306/lady_store"
+4. Crie um arquivo .env na raiz do projeto como o env.example, e adicione as seguintes variáveis de ambiente:
+
+    ```bash
+    DATABASE_URL="mysql://user:password@localhost:3306/lady_store"
 
 
-4. Rode as migrações do Prisma para criar o banco de dados e suas tabelas:
+5. Rode as migrações do Prisma para criar o banco de dados e suas tabelas:
 
     ```bash
     npx prisma migrate dev
 
-5. Inicie o servidor:
+6. Inicie o servidor:
 
     ```bash
     npm start
@@ -46,5 +54,3 @@ Agora, a API estará rodando no http://localhost:5000.
 
 ## Licença
 Este projeto está licenciado sob a MIT License. Você é livre para usar, modificar, distribuir e sublicenciar este código, desde que forneça a devida atribuição, conforme descrito na licença.
-
-A MIT License é uma licença permissiva que permite a utilização do código em projetos comerciais e não comerciais. No entanto, a responsabilidade pelo uso do código é inteiramente sua. O projeto é fornecido "no estado em que se encontra", sem garantias de qualquer tipo, expressas ou implícitas.
